@@ -1,3 +1,15 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": "next/core-web-vitals",
+  "ignorePatterns": [
+    "src/templates/theme.ts",
+    "pages/api/citiesCatalog.ts",
+    "pages/api/departmentsCatalog.ts",
+    "jest.config.js",
+    "jest.global.jsx",
+    "**/*.css",
+    "**/*.svg",
+    "**/*.png",
+    "**/*.jpg",
+    "**/*.styles.*"
+  ]
 }
