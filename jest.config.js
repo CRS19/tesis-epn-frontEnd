@@ -23,7 +23,8 @@ module.exports = {
   collectCoverageFrom: ["<rootDir>/**/*.{ts,tsx}"],
   coveragePathIgnorePatterns: [
     "/node_modules/",
-    "src/store/actionTypes",
+    "src/store/",
+    "/src/Hooks/",
     "src/templates",
     "src/shared/enums",
     "src/shared/interfaces",

@@ -4,6 +4,8 @@ import createEmotionCache from "../utility/createEmotionCache";
 import ligthTheme from "../styles/ligthTheme";
 import { EmotionCache } from "@emotion/cache";
 import { ThemeProvider, CssBaseline } from "@mui/material";
+import store from "../src/store/store";
+import { Provider } from "react-redux";
 
 const clientCache = createEmotionCache();
 
@@ -13,12 +15,14 @@ function MyApp({
   emotionCache = clientCache,
 }: AppProps & { emotionCache: EmotionCache }) {
   return (
-    <CacheProvider value={emotionCache}>
-      <ThemeProvider theme={ligthTheme}>
-        <CssBaseline />
-        <Component {...pageProps} />
-      </ThemeProvider>
-    </CacheProvider>
+    <Provider store={store}>
+      <CacheProvider value={emotionCache}>
+        <ThemeProvider theme={ligthTheme}>
+          <CssBaseline />
+          <Component {...pageProps} />
+        </ThemeProvider>
+      </CacheProvider>
+    </Provider>
   );
 }
 
