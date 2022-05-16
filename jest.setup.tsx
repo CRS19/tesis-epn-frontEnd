@@ -16,3 +16,8 @@ jest.mock("@mui/styles", () => ({
 
   return jest.fn(() => themeValues);
 });
+
+jest.mock("./src/Hooks/useAppHooks", () => ({
+  useAppDispatch: () => jest.fn(),
+  useAppSelector: jest.fn(),
+}));
