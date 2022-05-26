@@ -1,18 +1,24 @@
 import { Box, IconButton, InputAdornment, TextField } from "@mui/material";
-import React, { useState } from "react";
+import React, { ChangeEvent, useState } from "react";
+import { IPassInputProps } from "./PassInput.interfaces";
 import { passInputStyles } from "./PassInput.styles";
 
-export const PassInput = () => {
+export const PassInput = ({ setPassword }: IPassInputProps) => {
   const [showPass, setShowPass] = useState<boolean>(false);
 
   return (
     <Box textAlign={"center"} sx={passInputStyles.container}>
       <TextField
         sx={passInputStyles.TextFieldMainStyle}
-        id="outlined-basic"
+        id="Password-input"
         type={!showPass ? "password" : "text"}
         label="Ingrese contraseña"
         variant="outlined"
+        onChange={(
+          event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+        ) => {
+          setPassword(event.target.value);
+        }}
         InputProps={{
           endAdornment: (
             <InputAdornment

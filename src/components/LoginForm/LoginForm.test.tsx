@@ -9,11 +9,20 @@ import { LoginForm } from "./LoginForm";
 
 describe("CornerBalls Tests", () => {
   let wrapper: ShallowWrapper;
+  let login_mock = jest.fn();
+  let set_password_mock = jest.fn().mockImplementation((text: string) => {});
+  let set_email_mock = jest.fn().mockImplementation((text: string) => {});
 
   beforeEach(() => {
     wrapper = shallow(
       <Provider store={store}>
-        <LoginForm />
+        <LoginForm
+          login={login_mock}
+          loginFormActions={{
+            setPassword: set_password_mock,
+            setEmail: set_email_mock,
+          }}
+        />
       </Provider>
     );
     wrapper = wrapper.find(LoginForm).dive();

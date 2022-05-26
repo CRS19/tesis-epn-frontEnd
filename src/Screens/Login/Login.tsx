@@ -1,17 +1,16 @@
 import React from "react";
-import { Box, Button, Grid, TextField } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import { generalStyles, loginStyles } from "./Login.styles";
 import { useLogin } from "./state/useLogin";
 import { CornerBalls } from "../../components/CornerBalls/CornerBalls";
 import { IconsHeader } from "../../components/IconsHeader/IconsHeader";
 import { LoginIcon } from "../../components/LoginIcon/LoginIcon";
 import { LoginForm } from "../../components/LoginForm/LoginForm";
+import { SnackBarAlert } from "../../components/Alert/SnackBarAlert";
 
 export default function Login() {
-  const { envVariable, changeText } = useLogin();
+  const { login, loginFormActions } = useLogin();
 
-  // TODO: cambiar el texto
-  changeText("");
   return (
     <Box sx={generalStyles.PageContainer}>
       <CornerBalls />
@@ -20,11 +19,12 @@ export default function Login() {
           <Box sx={{ opacity: "100%" }}>
             <IconsHeader />
             <LoginIcon />
-            <LoginForm />
+            <LoginForm login={login} loginFormActions={loginFormActions} />
           </Box>
         </Grid>
         <Grid item sx={loginStyles.IlustrationContainer}></Grid>
       </Grid>
+      <SnackBarAlert />
     </Box>
   );
 }
