@@ -1,15 +1,49 @@
-import React from "react";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../../Hooks/useAppHooks";
-import { getTestText } from "../../../store/actionCreators/actionCreators";
+import { RoutesEnum } from "../../../Shared/Enums/Routes";
+import { ILoginRequest } from "../../../Shared/Interfaces/LoginRequest.interfaces";
+import {
+  checkAuthToken,
+  getAuthToken,
+  getTestText,
+} from "../../../store/actionCreators/actionCreators";
+import { IUseLogin } from "./useLogin.interfaces";
 
-export const useLogin = () => {
-  const envVariable = process.env.NEXT_PUBLIC_EL_PEPE_VARIBALE;
+export const useLogin = (): IUseLogin => {
   const dispatch = useAppDispatch();
-  //const text = useAppSelector((store) => store.generalReducer.messageText!);
+  const route = useRouter();
+  const isLoggedIn = useAppSelector(
+    (store) => store.generalReducer.isLoggedIn!
+  );
+  const [credentials, setCredentials] = useState<ILoginRequest>({
+    mail: "",
+    password: "",
+  });
+  const navigateToHome = () => {
+    route.push(RoutesEnum.HOME);
+  };
+  const setPassword = (text: string) =>
+    setCredentials((prevVal) => ({ ...prevVal, password: text }));
+  const setEmail = (text: string) =>
+    setCredentials((prevVal) => ({
+      ...prevVal,
+      mail: text.toLowerCase().trim(),
+    }));
 
-  const changeText = (text: string) => {
-    dispatch(getTestText(text));
+  const login = () => {
+    // TODO: poner la logica de logIn here
+    dispatch(getAuthToken(credentials, navigateToHome));
   };
 
-  return { envVariable, changeText };
+  useEffect(() => {
+    dispatch(checkAuthToken());
+    if (!isLoggedIn) {
+      route.push(RoutesEnum.LOGIN);
+    } else {
+      navigateToHome();
+    }
+  }, [isLoggedIn]);
+
+  return { login, loginFormActions: { setPassword, setEmail } };
 };

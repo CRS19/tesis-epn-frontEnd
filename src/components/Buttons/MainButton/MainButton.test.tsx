@@ -6,11 +6,12 @@ import { MainButton } from "./MainButton";
 
 describe("MainButton Tests", () => {
   let wrapper: ReactWrapper;
+  let mockOnClick: () => {};
 
   beforeEach(() => {
     wrapper = mount(
       <Provider store={store}>
-        <MainButton />
+        <MainButton btnText="Text" onClick={mockOnClick} />
       </Provider>
     );
   });

@@ -7,11 +7,13 @@ import { act } from "react-dom/test-utils";
 
 describe("PassInput Tests", () => {
   let wrapper: ReactWrapper;
+  let set_password_mock: jest.Mock;
 
   beforeEach(() => {
+    set_password_mock = jest.fn().mockImplementation((text: string) => {});
     wrapper = mount(
       <Provider store={store}>
-        <PassInput />
+        <PassInput setPassword={set_password_mock} />
       </Provider>
     );
   });
@@ -31,5 +33,17 @@ describe("PassInput Tests", () => {
     expect(wrapper.find("img").prop("src")).toEqual(
       "../../../../assets/show-pass.png"
     );
+  });
+
+  it("When the text in component has change, then setPassword should be called", () => {
+    act(() => {
+      //@ts-ignore
+      wrapper.find(TextField).prop("onChange")({
+        //@ts-ignore
+        target: { value: "elpepepass" },
+      });
+    });
+
+    expect(set_password_mock).toHaveBeenCalledWith("elpepepass");
   });
 });
