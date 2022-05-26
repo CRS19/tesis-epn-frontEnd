@@ -1,49 +1,29 @@
-import { mount, ReactWrapper, shallow, ShallowWrapper } from "enzyme";
+import { shallow, ShallowWrapper } from "enzyme";
 import Login from "./Login";
-import { Button } from "@mui/material";
-import ShallowMock from "../../../utility/test-utils";
 import { Provider } from "react-redux";
 import store from "../../store/store";
+import { IconsHeader } from "../../components/IconsHeader/IconsHeader";
+import { LoginIcon } from "../../components/LoginIcon/LoginIcon";
+import { LoginForm } from "../../components/LoginForm/LoginForm";
 
-describe("CertificatesButtons Tests", () => {
-  /*  jest.mock("react-redux", () => ({
-    useDispatch: () => jest.fn(),
-    useSelector: jest.fn(),
-  }));
-
-  jest.mock("../../Hooks/useAppHooks", () => ({
-    useAppDispatch: () => jest.fn(),
-    useAppSelector: jest.fn(),
-  }));
-
-  const mockDispatch = appHooks.useAppDispatch as jest.Mock;
-  const mockSelector = appHooks.useAppSelector as jest.Mock;
-*/
-  let wrapper: ReactWrapper;
+describe("Login Tests", () => {
+  let wrapper: ShallowWrapper;
 
   beforeEach(() => {
-    wrapper = mount(
+    wrapper = shallow(
       <Provider store={store}>
         <Login />
       </Provider>
     );
   });
 
-  it("When component is render and registrations not has elements, it must render button", () => {
-    console.log(wrapper.debug());
-
-    expect(wrapper.find(Button)).toHaveLength(3);
+  afterEach(() => {
+    wrapper.unmount();
   });
 
-  it("When component is render and Button is clicked, text should change", () => {
-    console.log(wrapper.debug());
-
-    // @ts-ignore
-    wrapper.find(Button).at(1).props().onClick();
-    wrapper.update();
-
-    console.log(wrapper.find(Button).at(0).find("button").text());
-
-    expect(wrapper.find(Button).at(0).find("button").text()).toEqual("WORKS");
+  it("When component is render and registrations not has elements, it must render 1 Icons Header, 1 LoginIcon and 1 Login Form", () => {
+    expect(wrapper.find(Login).dive().find(IconsHeader)).toHaveLength(1);
+    expect(wrapper.find(Login).dive().find(LoginIcon)).toHaveLength(1);
+    expect(wrapper.find(Login).dive().find(LoginForm)).toHaveLength(1);
   });
 });

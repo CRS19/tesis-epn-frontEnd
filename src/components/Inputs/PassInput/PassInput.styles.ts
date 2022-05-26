@@ -1,40 +1,12 @@
-import { IStyles } from "../../Shared/Interfaces/Styles.interfaces";
+import { IStyles } from "../../../Shared/Interfaces/Styles.interfaces";
 
-export const loginStyles: IStyles = {
-  cutomButtomStyle: {
-    backgroundColor: "orange",
-    ":hover": { backgroundColor: "green" },
-  },
-  LogInFormContainer: {
-    height: {
-      xs: 1024,
-    },
-    width: {
-      xs: "100%",
-      md: "50%",
-      lg: "40%",
-    },
-    backgroundColor: "rgba(119, 164, 220, 0.13)",
-  },
-  IlustrationContainer: {
-    height: {
-      xs: 712,
-    },
-    width: {
-      xs: "100%",
-      md: "50%",
-      lg: "60%",
-    },
-    backgroundColor: "blue",
-  },
-};
-
-export const generalStyles: IStyles = {
-  PageContainer: {
-    padding: 0,
+export const passInputStyles: IStyles = {
+  container: {
+    marginTop: 2,
   },
   TextFieldMainStyle: {
     width: { xs: "90%", md: "58%" },
+    backgroundColor: "#FFFFFF",
     borderRadius: 30,
     boxShadow: 3,
     "& .MuiInputBase-input": {
@@ -54,7 +26,6 @@ export const generalStyles: IStyles = {
     },
     "& .MuiInput-underline:after": {
       borderBottomColor: "green",
-      borderRadius: 30,
     },
     "& .MuiOutlinedInput-root": {
       "& fieldset": {

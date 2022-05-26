@@ -1,24 +1,30 @@
 import React from "react";
-import { Button } from "@mui/material";
-import { loginStyles } from "./Login.styles";
+import { Box, Grid } from "@mui/material";
+import { generalStyles, loginStyles } from "./Login.styles";
 import { useLogin } from "./state/useLogin";
+import { CornerBalls } from "../../components/CornerBalls/CornerBalls";
+import { IconsHeader } from "../../components/IconsHeader/IconsHeader";
+import { LoginIcon } from "../../components/LoginIcon/LoginIcon";
+import { LoginForm } from "../../components/LoginForm/LoginForm";
+import { SnackBarAlert } from "../../components/Alert/SnackBarAlert";
 
 export default function Login() {
-  const { envVariable, changeText, text } = useLogin();
+  const { login, loginFormActions } = useLogin();
 
   return (
-    <div>
-      <p>Hola mundo</p>
-      <p>{envVariable}</p>
-      <Button variant="text">{text}</Button>
-      <Button
-        variant="contained"
-        sx={loginStyles.cutomButtomStyle}
-        onClick={() => changeText("WORKS")}
-      >
-        Contained
-      </Button>
-      <Button variant="outlined">Outlined</Button>
-    </div>
+    <Box sx={generalStyles.PageContainer}>
+      <CornerBalls />
+      <Grid container>
+        <Grid item sx={loginStyles.LogInFormContainer}>
+          <Box sx={{ opacity: "100%" }}>
+            <IconsHeader />
+            <LoginIcon />
+            <LoginForm login={login} loginFormActions={loginFormActions} />
+          </Box>
+        </Grid>
+        <Grid item sx={loginStyles.IlustrationContainer}></Grid>
+      </Grid>
+      <SnackBarAlert />
+    </Box>
   );
 }
