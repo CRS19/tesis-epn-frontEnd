@@ -99,4 +99,23 @@ describe("useLogin tests", () => {
 
     expect(mockRouterPush).toHaveBeenCalled();
   });
+
+  it("When the store is undefined, it should get default values", () => {
+    wrapper.unmount();
+    mock_store = {
+      generalReducer: {
+        ...store.getState().generalReducer,
+        isLoggedIn: undefined,
+        isLoading: undefined,
+      },
+    };
+
+    (useAppSelector as jest.Mock).mockImplementation((fn) => fn(mock_store));
+
+    wrapper = mount(<TestComponent />);
+
+    console.log(wrapper.debug());
+
+    expect(wrapper.find("div").prop("isLoading")).toEqual(false);
+  });
 });

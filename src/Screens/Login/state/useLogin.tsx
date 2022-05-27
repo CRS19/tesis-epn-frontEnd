@@ -13,18 +13,22 @@ import { IUseLogin } from "./useLogin.interfaces";
 export const useLogin = (): IUseLogin => {
   const dispatch = useAppDispatch();
   const route = useRouter();
-  const isLoggedIn = useAppSelector(
-    (store) => store.generalReducer.isLoggedIn!
+  const { isLoggedIn = false, isLoading = false } = useAppSelector(
+    (store) => store.generalReducer!
   );
+
   const [credentials, setCredentials] = useState<ILoginRequest>({
     mail: "",
     password: "",
   });
+
   const navigateToHome = () => {
     route.push(RoutesEnum.HOME);
   };
+
   const setPassword = (text: string) =>
     setCredentials((prevVal) => ({ ...prevVal, password: text }));
+
   const setEmail = (text: string) =>
     setCredentials((prevVal) => ({
       ...prevVal,
@@ -45,5 +49,5 @@ export const useLogin = (): IUseLogin => {
     }
   }, [isLoggedIn]);
 
-  return { login, loginFormActions: { setPassword, setEmail } };
+  return { isLoading, login, loginFormActions: { setPassword, setEmail } };
 };
