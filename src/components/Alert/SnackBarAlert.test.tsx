@@ -30,6 +30,7 @@ describe("SnackBarAlert Tests", () => {
 
   afterEach(() => {
     wrapper.unmount();
+    jest.clearAllMocks();
   });
 
   it("When SnackBarAlert is render, then it should exist 1 SnackBarAlert component", () => {
