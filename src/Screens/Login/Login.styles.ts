@@ -18,15 +18,16 @@ export const loginStyles: IStyles = {
   },
   IlustrationContainer: {
     height: {
-      xs: 712,
+      xs: 1024,
     },
     width: {
       xs: "100%",
       md: "50%",
       lg: "60%",
     },
-    backgroundColor: "blue",
+    backgroundColor: "#FFFFFF",
   },
+  circleLoader: { color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 },
 };
 
 export const generalStyles: IStyles = {
