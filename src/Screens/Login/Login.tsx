@@ -8,9 +8,16 @@ import { LoginIcon } from "../../components/LoginIcon/LoginIcon";
 import { LoginForm } from "../../components/LoginForm/LoginForm";
 import { SnackBarAlert } from "../../components/Alert/SnackBarAlert";
 import { LoginWallpaper } from "../../components/LoginWallpaper/LoginWallpaper";
+import { RegisterForm } from "../../components/RegisterForm/RegisterForm";
 
 export default function Login() {
-  const { isLoading, login, loginFormActions } = useLogin();
+  const {
+    isRegister,
+    isLoading,
+    login,
+    loginFormActions,
+    registerFormActions,
+  } = useLogin();
 
   return (
     <Box sx={generalStyles.PageContainer}>
@@ -20,7 +27,11 @@ export default function Login() {
           <Box sx={{ opacity: "100%" }}>
             <IconsHeader />
             <LoginIcon />
-            <LoginForm login={login} loginFormActions={loginFormActions} />
+            {!isRegister ? (
+              <LoginForm login={login} loginFormActions={loginFormActions} />
+            ) : (
+              <RegisterForm registerFormActions={registerFormActions} />
+            )}
           </Box>
         </Grid>
         <Grid item sx={loginStyles.IlustrationContainer}>

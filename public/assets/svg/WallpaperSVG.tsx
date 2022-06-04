@@ -14,7 +14,6 @@ export const WallpaperSVG = ({
   heightPerson = "576",
 }: IWallpaperSvgProps) => {
   let base = 20;
-  console.log("Person width -> ", widthPerson);
 
   const getTop = () => {
     const personWidth = Number(widthPerson);

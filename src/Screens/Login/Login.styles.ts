@@ -8,6 +8,7 @@ export const loginStyles: IStyles = {
   LogInFormContainer: {
     height: {
       xs: 1024,
+      sm: 1100,
     },
     width: {
       xs: "100%",
@@ -38,6 +39,7 @@ export const generalStyles: IStyles = {
     width: { xs: "90%", md: "58%" },
     borderRadius: 30,
     boxShadow: 3,
+    maxHeight: "56px",
     "& .MuiInputBase-input": {
       backgroundColor: "#FFFFFF",
       borderRadius: 30,
@@ -55,6 +57,9 @@ export const generalStyles: IStyles = {
     },
     "& .MuiInput-underline:after": {
       borderBottomColor: "green",
+      borderRadius: 30,
+    },
+    "& .MuiOutlinedInput-notchedOutline": {
       borderRadius: 30,
     },
     "& .MuiOutlinedInput-root": {
