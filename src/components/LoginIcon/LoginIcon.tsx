@@ -1,6 +1,6 @@
 import { Box, Grid } from "@mui/material";
-import { border, borderColor } from "@mui/system";
 import React from "react";
+import Image from "next/image";
 import { loginIconStyles } from "./LoginIcon.styles";
 
 export const LoginIcon = () => {

@@ -9,6 +9,7 @@ export const passInputStyles: IStyles = {
     backgroundColor: "#FFFFFF",
     borderRadius: 30,
     boxShadow: 3,
+    maxHeight: "56px",
     "& .MuiInputBase-input": {
       backgroundColor: "#FFFFFF",
       borderRadius: 30,
@@ -23,6 +24,9 @@ export const passInputStyles: IStyles = {
       color: "black",
       marginLeft: "10px",
       top: -5,
+    },
+    "& .MuiOutlinedInput-notchedOutline": {
+      borderRadius: 30,
     },
     "& .MuiInput-underline:after": {
       borderBottomColor: "green",

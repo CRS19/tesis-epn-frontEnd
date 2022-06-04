@@ -22,7 +22,7 @@ export const LoginForm = ({ login, loginFormActions }: ILoginFormProps) => {
       </Grid>
       <Grid textAlign={"center"} item>
         <MainButton btnText="Ingresar al sistema" onClick={login} />
-        <RegisterText />
+        <RegisterText {...loginFormActions} />
       </Grid>
     </Grid>
   );

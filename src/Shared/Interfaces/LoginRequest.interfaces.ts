@@ -5,7 +5,22 @@ export interface ILoginResponse {
   user: IUser;
 }
 
+export interface IRegisterResponse {
+  message: string;
+}
+
 export interface ILoginRequest {
   mail: string;
   password: string;
+}
+
+export interface IRegisterRequest {
+  fullName: string;
+  idDevice: string;
+  isDevice: boolean;
+  isPossibleSick: boolean;
+  isSick: boolean;
+  mail: string;
+  password: string;
+  rol: String;
 }

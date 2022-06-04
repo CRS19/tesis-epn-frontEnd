@@ -18,8 +18,6 @@ describe("Login Wallpaper tests", () => {
   });
 
   it("When the component is render, then it should has 4 Box, 2 Typography and 1 WallpaperSVG ", () => {
-    console.log(wrapper.debug());
-
     expect(wrapper.find(Box).length).toEqual(4);
     expect(wrapper.find(Typography).length).toEqual(2);
     expect(wrapper.find(WallpaperSVG).length).toEqual(1);
