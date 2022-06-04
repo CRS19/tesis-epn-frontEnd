@@ -3,6 +3,7 @@ import { IStyles } from "../../Shared/Interfaces/Styles.interfaces";
 export const cornerStyles: IStyles = {
   container: {
     position: "absolute",
+    maxHeight: 200,
   },
   ballOne: {
     position: "relative",
