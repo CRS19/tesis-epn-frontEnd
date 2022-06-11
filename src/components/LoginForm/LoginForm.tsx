@@ -18,7 +18,7 @@ export const LoginForm = ({ login, loginFormActions }: ILoginFormProps) => {
         <UserInput setEmail={loginFormActions.setEmail} />
       </Grid>
       <Grid item>
-        <PassInput setPassword={loginFormActions.setPassword} />
+        <PassInput login={login} setPassword={loginFormActions.setPassword} />
       </Grid>
       <Grid textAlign={"center"} item>
         <MainButton btnText="Ingresar al sistema" onClick={login} />

@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import React from "react";
 import { WallpaperSVG } from "../../../public/assets/svg/WallpaperSVG";
-import useWindowDimensions from "../../Hooks/useWindowDimensions";
+import { useWindowDimensions } from "../../Hooks/useWindowDimensions";
 import { loginWallpaperStyles } from "./LoginWallpaper.styles";
 import { defaultTo } from "lodash";
 import { WallpaperSVG2 } from "../../../public/assets/svg/WallpaperSVG2";
