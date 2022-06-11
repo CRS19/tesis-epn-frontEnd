@@ -6,6 +6,7 @@ import { INewPasswordInputProps } from "./NewPasswordInput.interfaces";
 
 export const NewPasswordInput = ({
   setNewPassword,
+  registerNewUser,
   error,
   errorText,
   value,
@@ -31,6 +32,12 @@ export const NewPasswordInput = ({
           event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
         ) => {
           setNewPassword(event.target.value);
+        }}
+        onKeyDown={(event) => {
+          console.log(event);
+          if (event.key == "Enter") {
+            registerNewUser();
+          }
         }}
         InputProps={{
           endAdornment: (

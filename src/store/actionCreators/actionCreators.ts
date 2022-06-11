@@ -18,8 +18,8 @@ import {
   IRegisterResponse,
 } from "../../Shared/Interfaces/LoginRequest.interfaces";
 import { isNil } from "lodash";
-import { IAxiosError } from "../../Shared/Interfaces/Axios.interfaces";
 import { AxiosError } from "axios";
+import { setLocalStorageUser } from "../../../utility/localStorage-utils";
 
 export type IAppAction = {
   type: string;
@@ -45,6 +45,7 @@ export const getAuthToken =
       localStorage.setItem("jwt", JSON.stringify(response.data.access_token));
 
       dispatch(setCurrentUser(response.data.user));
+      setLocalStorageUser(response.data.user);
       dispatch(setIsLoggedIn(true));
       callBack();
     } catch (e) {
@@ -71,21 +72,31 @@ export const checkAuthToken = (): AppThunk => (dispatch, getState) => {
     }),
   };
 
-  fetch(
-    `${process.env.NEXT_PUBLIC_BASE_API_PATH}${SERVICE_PATHS.auth}/protected`,
-    options
-  ).then((response) => {
-    if (response.status !== 200) {
-      dispatch(setIsLoggedIn(false));
-      localStorage.removeItem("jwt");
-    } else {
-      dispatch(setIsLoggedIn(true));
-    }
-  });
+  try {
+    fetch(
+      `${process.env.NEXT_PUBLIC_BASE_API_PATH}${SERVICE_PATHS.auth}/protected`,
+      options
+    ).then((response) => {
+      if (response.status !== 200) {
+        dispatch(setIsLoggedIn(false));
+        localStorage.removeItem("jwt");
+      } else {
+        dispatch(setIsLoggedIn(true));
+      }
+    });
+  } catch (e) {
+    dispatch(
+      setSnackBarMessage({
+        messageText: "Existe un error en el servidor",
+        severity: "error",
+      })
+    );
+  }
 };
 
 export const setLogOut = (): AppThunk => (dispatch, getState) => {
   localStorage.removeItem("jwt");
+  localStorage.removeItem("user");
   dispatch(setIsLoggedIn(false));
 };
 

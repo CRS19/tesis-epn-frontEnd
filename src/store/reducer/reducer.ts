@@ -1,3 +1,4 @@
+import { RoutesEnum } from "./../../Shared/Enums/Routes";
 import { ISnackBarMessage } from "./../../Shared/Interfaces/SnackBar.interfaces";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IUser } from "../../Shared/Interfaces/User.interfaces";
@@ -9,6 +10,7 @@ export interface IAppState {
   isLoading?: boolean;
   currentUser?: IUser;
   snackBarConfig?: ISnackBarMessage;
+  currentPath?: RoutesEnum;
 }
 
 export const DEFAULT_STATE: IAppState = {

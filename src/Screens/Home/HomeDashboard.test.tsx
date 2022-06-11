@@ -2,20 +2,22 @@ import { shallow, ShallowWrapper } from "enzyme";
 import { Provider } from "react-redux";
 import store from "../../store/store";
 import { HomeDashboard } from "./HomeDashboard";
-import { MainButton } from "../../components/Buttons/MainButton/MainButton";
 import { useAppDispatch } from "../../Hooks/useAppHooks";
+import * as useHomeDashbaoardHook from "./state/useHome";
+import { IUseHome } from "./state/useHome.interfaces";
 
 describe("Home Dashboard Tests", () => {
   let wrapper: ShallowWrapper;
   let dispatch_mock: jest.Mock;
+  let log_out = jest.fn();
+  let use_home_response: IUseHome = {
+    isLoggedIn: true,
+    logOut: log_out,
+  };
 
   beforeEach(() => {
     dispatch_mock = useAppDispatch() as jest.Mock;
-    wrapper = shallow(
-      <Provider store={store}>
-        <HomeDashboard />
-      </Provider>
-    );
+    mountComponent();
   });
 
   afterEach(() => {
@@ -23,16 +25,29 @@ describe("Home Dashboard Tests", () => {
     wrapper.unmount();
   });
 
-  it("When component is render, it must render 1 div and 1 log out button", () => {
-    expect(wrapper.find(HomeDashboard).dive().find("div")).toHaveLength(1);
-    expect(wrapper.find(HomeDashboard).dive().find(MainButton)).toHaveLength(1);
-  });
+  const mountComponent = () => {
+    wrapper = shallow(
+      <Provider store={store}>
+        <HomeDashboard />
+      </Provider>
+    );
+  };
 
-  it("When log out is clicked, then it should change isLoggedIn to false", () => {
+  const mockUseHomeHook = () => {
+    jest
+      .spyOn(useHomeDashbaoardHook, "useHome")
+      .mockImplementation(() => use_home_response);
+  };
+
+  it("When component is render, it must render 1 div and 1 log out button", () => {
     // @ts-ignore
-    wrapper.find(HomeDashboard).dive().find(MainButton).prop("onClick")();
+    mockUseHomeHook();
+    mountComponent();
+
     dispatch_mock();
-    wrapper.update();
+
+    console.log(wrapper.childAt(0).dive().debug());
+
     expect(dispatch_mock).toBeCalled();
   });
 });

@@ -3,7 +3,7 @@ import React, { ChangeEvent, useState } from "react";
 import { IPassInputProps } from "./PassInput.interfaces";
 import { passInputStyles } from "./PassInput.styles";
 
-export const PassInput = ({ setPassword }: IPassInputProps) => {
+export const PassInput = ({ setPassword, login }: IPassInputProps) => {
   const [showPass, setShowPass] = useState<boolean>(false);
 
   return (
@@ -18,6 +18,11 @@ export const PassInput = ({ setPassword }: IPassInputProps) => {
           event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
         ) => {
           setPassword(event.target.value);
+        }}
+        onKeyDown={(event) => {
+          if (event.key == "Enter") {
+            login();
+          }
         }}
         InputProps={{
           endAdornment: (
