@@ -3,6 +3,7 @@ export interface INewPasswordInputProps {
   errorText: string;
   value: string;
   setNewPassword: (text: string) => void;
+  registerNewUser: () => void;
   placeHolder?: string;
 }
 

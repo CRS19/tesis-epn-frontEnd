@@ -35,6 +35,7 @@ describe("CornerBalls Tests", () => {
       value: "error value",
       setNewPassword: set_new_pass_mock,
       placeHolder: "elpepepholder",
+      registerNewUser: jest.fn(),
     },
     confirmPasswordProps: {
       error: false,

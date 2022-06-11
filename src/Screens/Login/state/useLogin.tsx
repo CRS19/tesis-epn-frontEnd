@@ -207,6 +207,7 @@ export const useLogin = (): IUseLogin => {
         error: newUserForm.registerFormValidations.password,
         value: newUserForm.registerFormValues.password,
         errorText: newUserForm.registerFormErrorTexts.password,
+        registerNewUser,
         setNewPassword,
       },
       confirmPasswordProps: {

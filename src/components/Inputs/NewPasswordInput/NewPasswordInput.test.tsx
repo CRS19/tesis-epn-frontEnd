@@ -10,6 +10,7 @@ describe("FullNameInput Tests", () => {
   let set_mail_mock: jest.Mock;
   let mock_error_text = "text error test";
   let mock_error = false;
+  let register_new_user_mock = jest.fn();
   let mock_value = "Email value";
 
   beforeEach(() => {
@@ -32,6 +33,7 @@ describe("FullNameInput Tests", () => {
           value={mock_value}
           error={mock_error}
           errorText={mock_error_text}
+          registerNewUser={register_new_user_mock}
         />
       </Provider>
     );
@@ -76,5 +78,37 @@ describe("FullNameInput Tests", () => {
     expect(wrapper.find("img").prop("src")).toEqual(
       "../../../../assets/show-pass.png"
     );
+  });
+
+  it("When the user press Enter, then registerNewUser should be called", () => {
+    act(() => {
+      //@ts-ignore
+      wrapper
+        .find(TextField)
+        .at(0)
+        .props()
+        //@ts-ignore
+        .onKeyDown({ key: "Enter" });
+    });
+
+    wrapper.update();
+
+    expect(register_new_user_mock).toHaveBeenCalled();
+  });
+
+  it("When the user press whatever key exept Enter, then registerNewUser should not be called", () => {
+    act(() => {
+      //@ts-ignore
+      wrapper
+        .find(TextField)
+        .at(0)
+        .props()
+        //@ts-ignore
+        .onKeyDown({ key: "k" });
+    });
+
+    wrapper.update();
+
+    expect(register_new_user_mock).not.toHaveBeenCalled();
   });
 });

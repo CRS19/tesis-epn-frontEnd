@@ -40,6 +40,7 @@ describe("Login Tests", () => {
         value: "",
         errorText: "",
         setNewPassword: jest.fn(),
+        registerNewUser: jest.fn(),
       },
       confirmPasswordProps: {
         error: false,

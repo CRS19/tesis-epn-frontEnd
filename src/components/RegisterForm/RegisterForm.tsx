@@ -23,10 +23,14 @@ export const RegisterForm = ({ registerFormActions }: IRegisterFormProps) => {
         <EmailInput {...registerFormActions.emailInputProps} />
       </Grid>
       <Grid item sx={registerFormStyles.inputContainer}>
-        <NewPasswordInput {...registerFormActions.newPasswordProps} />
+        <NewPasswordInput
+          {...registerFormActions.newPasswordProps}
+          registerNewUser={registerFormActions.registerNewUser}
+        />
       </Grid>
       <Grid item sx={registerFormStyles.inputContainer}>
         <NewPasswordInput
+          registerNewUser={registerFormActions.registerNewUser}
           placeHolder="Confirmar Contraseña"
           setNewPassword={
             registerFormActions.confirmPasswordProps.setConfirmPass
