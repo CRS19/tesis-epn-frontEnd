@@ -56,16 +56,12 @@ describe("NavigationButtom tests", () => {
 
     mountComponent();
 
-    console.log(wrapper.debug());
-
     act(() => {
       //@ts-ignore
       wrapper.find(Typography).props().onClick();
     });
 
     wrapper.update();
-
-    console.log(wrapper.debug());
 
     expect(wrapper.find(Box).length).toEqual(1);
     expect(wrapper.find(Typography).length).toEqual(1);

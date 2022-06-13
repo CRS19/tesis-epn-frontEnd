@@ -28,7 +28,6 @@ describe("Recomendation tests", () => {
   };
 
   it("When component is render, and user is not logged in, it should render an empty screen", () => {
-    console.log(wrapper.find(Recomendations).dive().debug());
     expect(wrapper.find(Recomendations).dive().find("div")).toHaveLength(0);
   });
 

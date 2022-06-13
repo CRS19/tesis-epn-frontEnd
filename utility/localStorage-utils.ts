@@ -11,7 +11,7 @@ export const getUser = (): IUser | {} => {
     localStorage.getItem(LOCALSTORAGE_ENUM.USER),
     ""
   );
-  console.log("JEELP", userString);
+
   try {
     userObj = JSON.parse(userString);
   } catch (e) {

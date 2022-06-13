@@ -157,7 +157,6 @@ export const useLogin = (): IUseLogin => {
     }
 
     if (isFormValid(newUserForm.registerFormValidations)) {
-      console.log(JSON.stringify(newUserForm.registerFormValues, null, 3));
       dispatch(createNewUser(newUserForm.registerFormValues));
       return;
     }

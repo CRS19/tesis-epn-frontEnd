@@ -32,7 +32,6 @@ describe("LinkDevice Tests", () => {
   };
 
   it("When component is render, and user is not logged in, it should render an empty screen", () => {
-    console.log(wrapper.find(LinkDevice).dive().debug());
     expect(wrapper.find(LinkDevice).dive().find("div")).toHaveLength(0);
   });
 

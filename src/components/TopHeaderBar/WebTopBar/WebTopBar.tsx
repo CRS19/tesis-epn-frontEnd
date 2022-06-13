@@ -1,5 +1,6 @@
 import { Box, Divider, Grid } from "@mui/material";
 import React from "react";
+import { useAppSelector } from "../../../Hooks/useAppHooks";
 import {
   EPN_LOGO_PORCENTAGE,
   getHeightEPNlogo,
@@ -8,17 +9,17 @@ import { RoutesEnum } from "../../../Shared/Enums/Routes";
 import { Avatar } from "../../Avatar/Avatar";
 import { NavigationButtom } from "../../NavigationButtom/NavigationButtom";
 import { IWebTopBarProps } from "./WebTopBar.interfaces";
+import { webTopBarStyles } from "./WebTopBar.styles";
+import { get } from "lodash";
 
 export const WebTopBar = ({ width }: IWebTopBarProps) => {
+  const { currentUser } = useAppSelector((store) => store.generalReducer!);
+
   return (
     <>
       <Grid container>
         <Grid item xs={1.3}>
-          <Box
-            display={"flex"}
-            sx={{ justifyContent: "center", alignItems: "center" }}
-            height={113}
-          >
+          <Box display={"flex"} sx={webTopBarStyles.container} height={113}>
             <img
               height={getHeightEPNlogo(width)}
               width={`${width * EPN_LOGO_PORCENTAGE}`}
@@ -27,15 +28,7 @@ export const WebTopBar = ({ width }: IWebTopBarProps) => {
           </Box>
         </Grid>
         <Grid display={"flex"} item xs={10} flexDirection={"row"}>
-          <Divider
-            orientation="vertical"
-            sx={{
-              bgcolor: "#002467",
-              maxHeight: "100px",
-              width: "8px",
-              marginTop: 1,
-            }}
-          />
+          <Divider orientation="vertical" sx={webTopBarStyles.divider} />
           <NavigationButtom
             path={RoutesEnum.HOME}
             title="Home"
@@ -59,18 +52,17 @@ export const WebTopBar = ({ width }: IWebTopBarProps) => {
           />
           <NavigationButtom
             path={RoutesEnum.LINK_DEVICE}
-            title="Desvincular"
+            title={
+              get(currentUser, "idDevice", "") === ""
+                ? "Vincular"
+                : "Desvincular"
+            }
             navigateTo={RoutesEnum.LINK_DEVICE}
             windowWidth={width}
             width="17%"
           />
         </Grid>
-        <Grid
-          display={"flex"}
-          sx={{ justifyContent: "center", alignItems: "center" }}
-          item
-          xs={0.7}
-        >
+        <Grid display={"flex"} sx={webTopBarStyles.container} item xs={0.7}>
           <Avatar />
         </Grid>
       </Grid>

@@ -269,7 +269,6 @@ describe("useLogin tests", () => {
     };
 
     wrapper.update();
-    console.log(wrapper.childAt(0).props());
 
     expect(mock_store.generalReducer.isLoggedIn).toEqual(true);
   });
@@ -291,7 +290,6 @@ describe("useLogin tests", () => {
     };
 
     wrapper.update();
-    console.log(wrapper.childAt(0).props());
 
     expect(mock_store.generalReducer.isLoggedIn).toEqual(true);
   });
@@ -313,7 +311,6 @@ describe("useLogin tests", () => {
     };
 
     wrapper.update();
-    console.log(wrapper.childAt(0).props());
 
     expect(mock_store.generalReducer.isLoggedIn).toEqual(true);
   });
