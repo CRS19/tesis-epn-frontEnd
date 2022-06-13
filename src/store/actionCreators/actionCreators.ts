@@ -126,8 +126,6 @@ export const createNewUser =
         createNewUserRequest
       );
 
-      console.log("Usuario ingresado exitosamente");
-
       dispatch(
         setSnackBarMessage({
           messageText: "Usuario Ingresado Exitosamente",

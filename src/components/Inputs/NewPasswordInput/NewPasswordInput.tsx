@@ -34,7 +34,6 @@ export const NewPasswordInput = ({
           setNewPassword(event.target.value);
         }}
         onKeyDown={(event) => {
-          console.log(event);
           if (event.key == "Enter") {
             registerNewUser();
           }

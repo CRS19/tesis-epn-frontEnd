@@ -12,8 +12,6 @@ export const getNameInitials = (fullName: string = "") => {
 };
 
 export const getFontsSizesByWidth = (width: number) => {
-  console.log(width, " -> ", Math.trunc(0.0086 * width + 20));
-
   return Math.trunc(0.0186 * width);
 };
 

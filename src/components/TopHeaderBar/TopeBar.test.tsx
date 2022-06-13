@@ -32,7 +32,7 @@ describe("TobBar tests", () => {
       .mockImplementation(() => ({ width: 1440, height: 1080 }));
 
     mountComponent();
-    console.log(wrapper.find(TopBar).dive().debug());
+
     expect(wrapper.find(TopBar).dive().find(WebTopBar)).toHaveLength(1);
   });
 
@@ -42,7 +42,7 @@ describe("TobBar tests", () => {
       .mockImplementation(() => ({ width: 700, height: 1080 }));
 
     mountComponent();
-    console.log(wrapper.find(TopBar).dive().debug());
+
     expect(wrapper.find(TopBar).dive().find(MobileTopBar)).toHaveLength(1);
   });
 });
