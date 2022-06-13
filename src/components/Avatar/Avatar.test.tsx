@@ -42,8 +42,6 @@ describe("Avatar tests", () => {
   };
 
   it("When te component is render, then should exists 1 ButtonBase, 1 Typography should exists", () => {
-    console.log(wrapper.debug());
-
     jest
       .spyOn(useAvatarHook, "useAvatar")
       .mockImplementation(() => ({ ...use_avatar_hook_response }));

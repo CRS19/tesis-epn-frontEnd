@@ -5,6 +5,7 @@ import { HomeDashboard } from "./HomeDashboard";
 import { useAppDispatch } from "../../Hooks/useAppHooks";
 import * as useHomeDashbaoardHook from "./state/useHome";
 import { IUseHome } from "./state/useHome.interfaces";
+import { TopBar } from "../../components/TopHeaderBar/TopBar";
 
 describe("Home Dashboard Tests", () => {
   let wrapper: ShallowWrapper;
@@ -39,15 +40,14 @@ describe("Home Dashboard Tests", () => {
       .mockImplementation(() => use_home_response);
   };
 
-  it("When component is render, it must render 1 div and 1 log out button", () => {
+  it("When component is render, it must render 1 Topbar and 1 log out button", () => {
     // @ts-ignore
     mockUseHomeHook();
     mountComponent();
 
     dispatch_mock();
 
-    console.log(wrapper.childAt(0).dive().debug());
-
     expect(dispatch_mock).toBeCalled();
+    expect(wrapper.find(HomeDashboard).dive().find(TopBar).length).toEqual(1);
   });
 });

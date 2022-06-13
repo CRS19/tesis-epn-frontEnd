@@ -32,7 +32,6 @@ describe("History Tests", () => {
   };
 
   it("When component is render, and user is not logged in, it should render an empty screen", () => {
-    console.log(wrapper.find(History).dive().debug());
     expect(wrapper.find(History).dive().find("div")).toHaveLength(0);
   });
 

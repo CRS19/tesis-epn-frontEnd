@@ -8,8 +8,8 @@ export const avatarStyles = (initials: string): IStyles => ({
       initials.codePointAt(0)!,
       initials.codePointAt(1)!
     ),
-    height: { md: "60px", xl: "70px" },
-    width: { md: "60px", xl: "70px" },
+    height: { xs: "50px", md: "60px", xl: "70px" },
+    width: { xs: "50px", md: "60px", xl: "70px" },
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 100,
@@ -18,7 +18,7 @@ export const avatarStyles = (initials: string): IStyles => ({
 
 export const avatarConstStyles: IStyles = {
   typography: {
-    fontSize: "24px",
+    fontSize: { sm: "19px", md: "24px" },
     fontWeight: "bold",
     color: "white",
   },

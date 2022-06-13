@@ -16,7 +16,6 @@ export const useAvatar = (): IUseAvatar => {
     useState<boolean>(false);
 
   const openAvatarOptions = (event: MouseEvent<HTMLButtonElement>) => {
-    console.log(event);
     setAnchorElement(event.currentTarget);
     setIsOpenAvatarOptions(true);
   };
@@ -30,8 +29,6 @@ export const useAvatar = (): IUseAvatar => {
   const logOut = () => {
     dispatch(setLogOut());
   };
-
-  console.log(anchorElement);
 
   useEffect(() => {
     const currentUser: IUser = getUser() as IUser;

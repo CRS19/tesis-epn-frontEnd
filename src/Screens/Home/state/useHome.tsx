@@ -22,7 +22,6 @@ export const useHome = (): IUseHome => {
   useEffect(() => {
     if (!isNil(currentUser)) {
       if (currentUser!.idDevice === "") {
-        console.log("navigate to linkDevice");
         router.push(RoutesEnum.LINK_DEVICE);
       }
     }
