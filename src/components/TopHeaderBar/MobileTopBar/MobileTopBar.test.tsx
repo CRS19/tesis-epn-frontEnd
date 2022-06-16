@@ -60,7 +60,6 @@ describe("MobileTopBar tests", () => {
   };
 
   it("When the component is render, it should render a div", () => {
-    console.log(wrapper.find(MobileTopBar).at(0).dive().debug());
     expect(wrapper.find(MobileTopBar).at(0).dive().find(Grid).length).toEqual(
       4
     );

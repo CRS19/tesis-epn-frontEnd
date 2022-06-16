@@ -8,6 +8,12 @@ export const cornerStyles: IStyles = {
     paddingLeft: { xs: "22%", md: "16%" },
     paddingRight: { xs: "22%", md: "16%" },
   },
+  borderRadiusStyle: {
+    marginTop: 2,
+    backgroundColor: "#0E2240",
+    height: "56px",
+    borderRadius: 50,
+  },
 };
 
 export const getContainerProps = (hasMarginTop: boolean) => ({

@@ -10,6 +10,10 @@ export const AUTH_ENDPOINTS = {
   register: "/Register",
 };
 
+export const USERS_ENDPOINTS = {
+  linkDevice: "/vinculateDevice",
+};
+
 export const ROUTES_ARRAY = [
   "HOME",
   "HISTORIAL",

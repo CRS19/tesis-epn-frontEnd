@@ -9,8 +9,15 @@ import {
   setSnackBarMessage,
 } from "../reducer/reducer";
 import { AppThunk } from "../store";
-import axios from "../../../utility/axios-utils";
-import { AUTH_ENDPOINTS, SERVICE_PATHS } from "../../Shared/Contants/Paths";
+import axios, {
+  getAxiosOptions,
+  getFetchOptions,
+} from "../../../utility/axios-utils";
+import {
+  AUTH_ENDPOINTS,
+  SERVICE_PATHS,
+  USERS_ENDPOINTS,
+} from "../../Shared/Contants/Paths";
 import {
   ILoginRequest,
   ILoginResponse,
@@ -61,16 +68,7 @@ export const getAuthToken =
   };
 
 export const checkAuthToken = (): AppThunk => (dispatch, getState) => {
-  const jwt = isNil(localStorage.getItem("jwt"))
-    ? JSON.stringify("empty")
-    : JSON.parse(localStorage.getItem("jwt")!);
-
-  const options = {
-    headers: new Headers({
-      "content-type": "application/json",
-      Authorization: `Bearer ${jwt}`,
-    }),
-  };
+  const options = getFetchOptions();
 
   try {
     fetch(
@@ -150,6 +148,49 @@ export const createNewUser =
           })
         );
       }
+    } finally {
+      dispatch(setIsLoading(false));
+    }
+  };
+
+export const linkDevice =
+  (mail: string, idDevice: string): AppThunk =>
+  async (dispatch, getState) => {
+    dispatch(setIsLoading(true));
+    const path = `${process.env.NEXT_PUBLIC_BASE_API_PATH!}${
+      SERVICE_PATHS.users
+    }${USERS_ENDPOINTS.linkDevice}`;
+    const options = getAxiosOptions();
+
+    try {
+      const response = await axios.patch<IRegisterResponse>(
+        path,
+        {
+          mail,
+          idDevice,
+        },
+        options
+      );
+
+      const linkActionText =
+        response.data.updatedResposne.idDevice === ""
+          ? "desvinculado"
+          : "vinculado";
+
+      dispatch(setCurrentUser(response.data.updatedResposne));
+      dispatch(
+        setSnackBarMessage({
+          messageText: `Id de dispositivo ${linkActionText}!`,
+          severity: "success",
+        })
+      );
+    } catch (e) {
+      dispatch(
+        setSnackBarMessage({
+          messageText: "Existe un error en el servidor",
+          severity: "error",
+        })
+      );
     } finally {
       dispatch(setIsLoading(false));
     }

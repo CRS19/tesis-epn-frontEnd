@@ -12,6 +12,7 @@ describe("CornerBalls Tests", () => {
   let login_mock = jest.fn();
   let set_password_mock = jest.fn().mockImplementation((text: string) => {});
   let set_email_mock = jest.fn().mockImplementation((text: string) => {});
+  let change_login_form_to_register = jest.fn();
 
   beforeEach(() => {
     wrapper = shallow(
@@ -21,6 +22,7 @@ describe("CornerBalls Tests", () => {
           loginFormActions={{
             setPassword: set_password_mock,
             setEmail: set_email_mock,
+            changeLoginFormToRegister: change_login_form_to_register,
           }}
         />
       </Provider>

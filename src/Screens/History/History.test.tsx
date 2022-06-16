@@ -1,7 +1,7 @@
 import { shallow, ShallowWrapper } from "enzyme";
 import { Provider } from "react-redux";
 import store from "../../store/store";
-import { useAppDispatch } from "../../Hooks/useAppHooks";
+import { useAppDispatch, useAppSelector } from "../../Hooks/useAppHooks";
 import * as useHistoryHook from "./state/useHistory";
 import { IUseHistory } from "./state/useHistory.interfaces";
 import { History } from "./History";
@@ -12,9 +12,12 @@ describe("History Tests", () => {
   let use_history_mock_response: IUseHistory = {
     isLoggedIn: false,
   };
+  let mock_store = store.getState();
 
   beforeEach(() => {
     dispatch_mock = useAppDispatch() as jest.Mock;
+    (useAppSelector as jest.Mock).mockImplementation((fn) => fn(mock_store));
+
     mountComponent();
   });
 

@@ -8,12 +8,17 @@ export const MainButton = ({
   onClick,
   btnText,
   hasMarginTop = true,
+  borderRadius = false,
 }: IMainButtonProps) => {
   return (
     <Box textAlign={"center"} sx={getContainerProps(hasMarginTop).container}>
       <Button
         variant="contained"
-        sx={cornerStyles.mainButtonStyle}
+        sx={
+          !borderRadius
+            ? cornerStyles.mainButtonStyle
+            : cornerStyles.borderRadiusStyle
+        }
         onClick={onClick}
       >
         {btnText}
