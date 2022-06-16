@@ -13,7 +13,6 @@ export const HomeDashboard = () => {
     <>
       {isLoggedIn && (
         <>
-          {console.log("jjelp")}
           <TopBar />
           <MainButton btnText="Log out" onClick={logOut} />
           <Backdrop sx={loginStyles.circleLoader} open={false}>
