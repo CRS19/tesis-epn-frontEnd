@@ -7,6 +7,7 @@ export interface ILoginResponse {
 
 export interface IRegisterResponse {
   message: string;
+  updatedResposne: IUser;
 }
 
 export interface ILoginRequest {

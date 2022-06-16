@@ -3,14 +3,18 @@ import { Provider } from "react-redux";
 import store from "../../store/store";
 import { Recomendations } from "./Recomendations";
 import * as useAuthHook from "../../Hooks/useAuth";
+import { useAppSelector } from "../../Hooks/useAppHooks";
 
 describe("Recomendation tests", () => {
   let wrapper: ShallowWrapper;
   let use_auth_mock_response = {
     isLoggedIn: false,
   };
+  let mock_store = store.getState();
 
   beforeEach(() => {
+    (useAppSelector as jest.Mock).mockImplementation((fn) => fn(mock_store));
+
     mountComponent();
   });
 

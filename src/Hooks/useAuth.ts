@@ -13,11 +13,8 @@ export const useAuth = (): IUseAuth => {
   const route = useRouter();
   const dispatch = useAppDispatch();
 
-  const isLoggedIn = useAppSelector(
-    (store) => store.generalReducer.isLoggedIn!
-  );
-  const currentUser = useAppSelector(
-    (store) => store.generalReducer.currentUser!
+  const { currentUser, isLoggedIn = false } = useAppSelector(
+    (store) => store.generalReducer
   );
 
   useEffect(() => {
