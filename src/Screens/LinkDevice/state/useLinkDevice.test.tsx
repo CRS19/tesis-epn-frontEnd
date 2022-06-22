@@ -40,7 +40,6 @@ describe("useLinkDevice test", () => {
   beforeEach(() => {
     (useAppSelector as jest.Mock).mockImplementation((fn) => fn(mock_store));
 
-    console.log(mock_store);
     mountComponent();
   });
 

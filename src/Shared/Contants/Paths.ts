@@ -14,6 +14,10 @@ export const USERS_ENDPOINTS = {
   linkDevice: "/vinculateDevice",
 };
 
+export const CONTACTS_ENPOINTS = {
+  data: "/data",
+};
+
 export const ROUTES_ARRAY = [
   "HOME",
   "HISTORIAL",

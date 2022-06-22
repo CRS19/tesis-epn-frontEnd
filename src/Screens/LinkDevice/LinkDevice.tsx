@@ -8,6 +8,7 @@ import { LinkDeviceForm } from "../../components/LinkDeviceForm/LinkDeviceForm";
 import Head from "next/head";
 import { SnackBarAlert } from "../../components/Alert/SnackBarAlert";
 import { loginStyles } from "../Login/Login.styles";
+import { Footer } from "../../components/Footer/Footer";
 
 export const LinkDevice = () => {
   const {
@@ -24,15 +25,6 @@ export const LinkDevice = () => {
     <>
       {isLoggedIn && (
         <>
-          <Head>
-            <title>Vincular Dispositivo</title>
-            <link rel="preconnect" href="https://fonts.googleapis.com" />
-            <link rel="preconnect" href="https://fonts.gstatic.com" />
-            <link
-              href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@100&display=swap"
-              rel="stylesheet"
-            />
-          </Head>
           <TopBar />
           <BackgroundLinkDevice />
           <Grid container>
@@ -53,6 +45,7 @@ export const LinkDevice = () => {
           <Backdrop sx={loginStyles.circleLoader} open={isLoading}>
             <CircularProgress color="inherit" />
           </Backdrop>
+          <Footer />
         </>
       )}
     </>

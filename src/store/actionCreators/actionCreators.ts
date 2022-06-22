@@ -4,6 +4,7 @@ import {
   changeTestText,
   IAppState,
   setCurrentUser,
+  setGraphData,
   setIsLoading,
   setIsLoggedIn,
   setSnackBarMessage,
@@ -15,6 +16,7 @@ import axios, {
 } from "../../../utility/axios-utils";
 import {
   AUTH_ENDPOINTS,
+  CONTACTS_ENPOINTS,
   SERVICE_PATHS,
   USERS_ENDPOINTS,
 } from "../../Shared/Contants/Paths";
@@ -27,6 +29,7 @@ import {
 import { isNil } from "lodash";
 import { AxiosError } from "axios";
 import { setLocalStorageUser } from "../../../utility/localStorage-utils";
+import { IGraphData } from "../../components/NodesGraph/NodesGraph.interfaces";
 
 export type IAppAction = {
   type: string;
@@ -178,6 +181,7 @@ export const linkDevice =
           : "vinculado";
 
       dispatch(setCurrentUser(response.data.updatedResposne));
+      setLocalStorageUser(response.data.updatedResposne);
       dispatch(
         setSnackBarMessage({
           messageText: `Id de dispositivo ${linkActionText}!`,
@@ -188,6 +192,34 @@ export const linkDevice =
       dispatch(
         setSnackBarMessage({
           messageText: "Existe un error en el servidor",
+          severity: "error",
+        })
+      );
+    } finally {
+      dispatch(setIsLoading(false));
+    }
+  };
+
+export const getGraphData =
+  (idDevice: string): AppThunk =>
+  async (dispatch, getState) => {
+    dispatch(setIsLoading(true));
+
+    const path = `${process.env.NEXT_PUBLIC_BASE_API_PATH!}${
+      SERVICE_PATHS.contacts
+    }${CONTACTS_ENPOINTS.data}/${idDevice}`;
+    const options = getAxiosOptions();
+
+    try {
+      const response = await axios.get<IGraphData>(path, options);
+
+      console.log(response.data);
+      dispatch(setGraphData(JSON.parse(JSON.stringify(response.data))));
+      dispatch(setIsLoading(false));
+    } catch (e) {
+      dispatch(
+        setSnackBarMessage({
+          messageText: "Existe un error al obtener la información a graficar",
           severity: "error",
         })
       );

@@ -27,5 +27,5 @@ export const useHome = (): IUseHome => {
     }
   });
 
-  return { logOut, isLoggedIn };
+  return { logOut, isLoggedIn, currentUser };
 };

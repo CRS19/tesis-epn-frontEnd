@@ -1,3 +1,4 @@
+import { IGraphData } from "./../../components/NodesGraph/NodesGraph.interfaces";
 import { RoutesEnum } from "./../../Shared/Enums/Routes";
 import { ISnackBarMessage } from "./../../Shared/Interfaces/SnackBar.interfaces";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
@@ -11,6 +12,7 @@ export interface IAppState {
   currentUser?: IUser;
   snackBarConfig?: ISnackBarMessage;
   currentPath?: RoutesEnum;
+  graphData?: IGraphData;
 }
 
 export const DEFAULT_STATE: IAppState = {
@@ -19,6 +21,7 @@ export const DEFAULT_STATE: IAppState = {
   isLoading: false,
   currentUser: undefined,
   snackBarConfig: INITIAL_SNACK_BAR,
+  graphData: { nodes: [], links: [] },
 };
 
 export const generalReducer = createSlice({
@@ -44,6 +47,10 @@ export const generalReducer = createSlice({
     setSnackBarMessage: (state, action: PayloadAction<ISnackBarMessage>) => {
       state.snackBarConfig = action.payload;
     },
+
+    setGraphData: (state, action: PayloadAction<IGraphData>) => {
+      state.graphData = action.payload;
+    },
   },
 });
 
@@ -53,6 +60,7 @@ export const {
   setIsLoading,
   setCurrentUser,
   setSnackBarMessage,
+  setGraphData,
 } = generalReducer.actions;
 
 export default generalReducer.reducer;
