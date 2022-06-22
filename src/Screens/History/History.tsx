@@ -1,4 +1,5 @@
 import React from "react";
+import { Footer } from "../../components/Footer/Footer";
 import { TopBar } from "../../components/TopHeaderBar/TopBar";
 import { useHistory } from "./state/useHistory";
 
@@ -11,6 +12,7 @@ export const History = () => {
         <>
           <TopBar />
           <div>History</div>
+          <Footer />
         </>
       )}
     </>

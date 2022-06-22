@@ -3,7 +3,9 @@ module.exports = {
   transform: {
     "^.+\\.(js|jsx|ts|tsx)$": ["babel-jest", { presets: ["next/babel"] }],
   },
-  transformIgnorePatterns: ["../node_modules/(?!@kushki)"],
+  transformIgnorePatterns: [
+    `../node_modules/(?!d3|d3-array|internmap|delaunator|robust-predicates)`,
+  ],
   moduleNameMapper: {
     "\\.(css)$": "identity-obj-proxy",
     "\\.(png)$": "identity-obj-proxy",
