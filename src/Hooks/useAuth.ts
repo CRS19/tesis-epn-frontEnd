@@ -12,9 +12,8 @@ import { IUser } from "../Shared/Interfaces/User.interfaces";
 export const useAuth = (): IUseAuth => {
   const route = useRouter();
   const dispatch = useAppDispatch();
-
   const { currentUser, isLoggedIn = false } = useAppSelector(
-    (store) => store.generalReducer
+    (store) => store.generalReducer!
   );
 
   useEffect(() => {

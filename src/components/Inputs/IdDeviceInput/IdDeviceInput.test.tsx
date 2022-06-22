@@ -59,8 +59,6 @@ describe("FullNameInput Tests", () => {
     mock_error = true;
     renderTestComponent();
 
-    console.log(wrapper.find(Box).at(0).prop("sx"));
-
     expect(wrapper.find(Box).length).toEqual(1);
     expect(wrapper.find(Box).at(0).prop("sx")).toStrictEqual({
       marginTop: 2,

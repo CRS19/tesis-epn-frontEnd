@@ -9,6 +9,7 @@ import { LoginForm } from "../../components/LoginForm/LoginForm";
 import { SnackBarAlert } from "../../components/Alert/SnackBarAlert";
 import { LoginWallpaper } from "../../components/LoginWallpaper/LoginWallpaper";
 import { RegisterForm } from "../../components/RegisterForm/RegisterForm";
+import { Footer } from "../../components/Footer/Footer";
 
 export default function Login() {
   const {

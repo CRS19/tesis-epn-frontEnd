@@ -4,6 +4,9 @@ import store from "../../store/store";
 import { Recomendations } from "./Recomendations";
 import * as useAuthHook from "../../Hooks/useAuth";
 import { useAppSelector } from "../../Hooks/useAppHooks";
+import { TopBar } from "../../components/TopHeaderBar/TopBar";
+import { RecomendationsSVG } from "../../../public/assets/svg/RecomendationsSVG";
+import { Footer } from "../../components/Footer/Footer";
 
 describe("Recomendation tests", () => {
   let wrapper: ShallowWrapper;
@@ -43,6 +46,10 @@ describe("Recomendation tests", () => {
 
     mountComponent();
 
-    expect(wrapper.find(Recomendations).dive().find("div")).toHaveLength(1);
+    expect(wrapper.find(Recomendations).dive().find(TopBar)).toHaveLength(1);
+    expect(
+      wrapper.find(Recomendations).dive().find(RecomendationsSVG)
+    ).toHaveLength(1);
+    expect(wrapper.find(Recomendations).dive().find(Footer)).toHaveLength(1);
   });
 });

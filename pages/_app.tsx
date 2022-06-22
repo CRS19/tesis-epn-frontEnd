@@ -6,6 +6,7 @@ import { EmotionCache } from "@emotion/cache";
 import { ThemeProvider, CssBaseline } from "@mui/material";
 import store from "../src/store/store";
 import { Provider } from "react-redux";
+import Head from "next/head";
 
 const clientCache = createEmotionCache();
 
@@ -19,6 +20,15 @@ function MyApp({
       <CacheProvider value={emotionCache}>
         <ThemeProvider theme={ligthTheme}>
           <CssBaseline />
+          <Head>
+            <title>Vincular Dispositivo</title>
+            <link rel="preconnect" href="https://fonts.googleapis.com" />
+            <link rel="preconnect" href="https://fonts.gstatic.com" />
+            <link
+              href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@100&display=swap"
+              rel="stylesheet"
+            />
+          </Head>
           <Component {...pageProps} />
         </ThemeProvider>
       </CacheProvider>
