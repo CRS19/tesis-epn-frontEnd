@@ -34,6 +34,7 @@ describe("useNavigationButtom tests", () => {
   afterEach(() => {
     wrapper.unmount();
     jest.clearAllMocks();
+    mockRouterPush.mockClear();
   });
 
   it("When user do click on navButtom, then navigateToPath should be called", () => {

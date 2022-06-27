@@ -36,7 +36,8 @@ describe("WebTopBar tests", () => {
 
   afterEach(() => {
     jest.clearAllMocks();
-    // wrapper.unmount();
+    mockRouterPush.mockClear();
+    wrapper.unmount();
   });
 
   const mountComponent = () => {

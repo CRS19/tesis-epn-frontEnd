@@ -31,10 +31,23 @@ describe("MainButton Tests", () => {
   });
 
   it("When the component is render with borderRadius in true, then it should have borderRadiusStyle styles", () => {
-    mountComponent({ borderRadius: true });
+    mountComponent({ borderRadius: true, width: "80px" });
 
-    expect(wrapper.find(Button).first().prop("sx")).toStrictEqual(
-      cornerStyles.borderRadiusStyle
-    );
+    expect(wrapper.find(Button).first().prop("sx")).toStrictEqual({
+      ...cornerStyles.borderRadiusStyle,
+      width: "80px",
+    });
+  });
+
+  it("When variant prop is secondary, it should render the second btn", () => {
+    mountComponent({ variant: "secondary" });
+
+    expect(wrapper.find(Button).first().prop("variant")).toEqual("contained");
+  });
+
+  it("When variant prop is secondary and borderRadius is true, it should render the second btn", () => {
+    mountComponent({ variant: "secondary", borderRadius: true });
+
+    expect(wrapper.find(Button).first().prop("variant")).toEqual("contained");
   });
 });

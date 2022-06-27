@@ -10,6 +10,11 @@ export interface IRegisterResponse {
   updatedResposne: IUser;
 }
 
+export interface IGetUserResponse {
+  message: string;
+  user: IUser;
+}
+
 export interface ILoginRequest {
   mail: string;
   password: string;

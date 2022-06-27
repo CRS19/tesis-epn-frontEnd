@@ -1,11 +1,11 @@
 import { Box, Typography } from "@mui/material";
 import React from "react";
-import { FooterSVG } from "../../../public/assets/svg/FooterSVG";
+import { IFooterProps } from "./Footer.interfaces";
 
-export const Footer = () => {
+export const Footer = ({ hasExtraHeight = true }: IFooterProps) => {
   return (
     <>
-      <Box sx={{ height: "85px" }} />
+      {hasExtraHeight && <Box sx={{ height: "85px" }} />}
       <Box
         sx={{
           bgcolor: "#0E2240",

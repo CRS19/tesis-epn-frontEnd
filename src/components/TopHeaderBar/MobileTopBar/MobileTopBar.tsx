@@ -89,7 +89,7 @@ export const MobileTopBar = () => {
                     <ListItemText primary={text} />
                   </ListItemButton>
                 </ListItem>
-                <Divider />
+                <Divider key={`Divider-${text}-${index}`} />
               </>
             ))}
           </List>
