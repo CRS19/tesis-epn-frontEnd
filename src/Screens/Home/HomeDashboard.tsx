@@ -6,6 +6,7 @@ import {
   CircularProgress,
   Grid,
   Typography,
+  Zoom,
 } from "@mui/material";
 import { loginStyles } from "../Login/Login.styles";
 import { TopBar } from "../../components/TopHeaderBar/TopBar";
@@ -17,9 +18,23 @@ import { homeStyles } from "./HomeDashboard.styles";
 import { BackgroundHomeScreen } from "../../components/Backgrounds/BackgroundHomeScreen";
 import { HomeImage } from "../../../public/assets/svg/HomeImage";
 import { linkDeviceFormStyles } from "../../components/LinkDeviceForm/LinkDeviceForm.styles";
+import { SickModal } from "../../components/Modals/SickModal/SickModal";
+import { AlertCard } from "../../components/Cards/AlertCard/AlertCard";
+import { PosibleSickModal } from "../../components/Modals/PosibleSickModal/PosibleSickModal";
+import { SnackBarAlert } from "../../components/Alert/SnackBarAlert";
 
 export const HomeDashboard = () => {
-  const { logOut, isLoggedIn, currentUser } = useHome();
+  const {
+    isLoggedIn,
+    isLoading,
+    currentUser,
+    sickModalPorps,
+    HealthModalProps,
+    alertSickModalProps,
+    openHealthModal,
+    openSickModal,
+    openAlertSickModal,
+  } = useHome();
 
   return (
     <>
@@ -35,12 +50,18 @@ export const HomeDashboard = () => {
               xs={12}
               lg={6}
               sx={{
-                justifyContent: "center",
                 alignItems: "center",
                 textAlign: "center",
+                bgcolor: "rgba(119, 164, 220, 0.13)",
               }}
             >
-              <Typography>elpepe</Typography>
+              {get(currentUser, "isPossibleSick", false) && (
+                <Zoom in timeout={1000}>
+                  <Box sx={{ width: "75%" }}>
+                    <AlertCard onClick={openAlertSickModal} />
+                  </Box>
+                </Zoom>
+              )}
               <HomeImage />
               <Typography
                 sx={{
@@ -70,22 +91,35 @@ export const HomeDashboard = () => {
             >
               <Typography sx={homeStyles.contactsTitle}>Contactos</Typography>
               <NodesGraph idDevice={get(currentUser, "idDevice", "")} />
-            </Grid>
-            <Grid xs={12}>
-              <Box>
-                <MainButton
-                  onClick={() => console.log("elpepe click")}
-                  btnText="Reportase enfermo"
-                  hasMarginTop={false}
-                  borderRadius={true}
-                />
-              </Box>
+              {!get(currentUser, "isSick", false) ? (
+                <Box sx={{ marginBottom: 2 }}>
+                  <MainButton
+                    onClick={openSickModal}
+                    btnText="Reportase enfermo"
+                    hasMarginTop={false}
+                    borderRadius={true}
+                  />
+                </Box>
+              ) : (
+                <Box sx={{ marginBottom: 2 }}>
+                  <MainButton
+                    onClick={openHealthModal}
+                    btnText="Reportarse Sano"
+                    hasMarginTop={false}
+                    borderRadius={true}
+                  />
+                </Box>
+              )}
             </Grid>
           </Grid>
-          <Backdrop sx={loginStyles.circleLoader} open={false}>
+          <Backdrop sx={loginStyles.circleLoader} open={isLoading}>
             <CircularProgress color="inherit" />
           </Backdrop>
-          <Footer />
+          <SickModal {...sickModalPorps} />
+          <SickModal {...HealthModalProps} />
+          <PosibleSickModal {...alertSickModalProps} />
+          <SnackBarAlert />
+          <Footer hasExtraHeight={false} />
         </>
       )}
     </>

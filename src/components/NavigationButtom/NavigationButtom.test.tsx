@@ -37,6 +37,8 @@ describe("NavigationButtom tests", () => {
 
   afterEach(() => {
     wrapper.unmount();
+    jest.clearAllMocks();
+    mockRouterPush.mockClear();
   });
 
   const mountComponent = () => {

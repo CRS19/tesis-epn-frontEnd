@@ -170,14 +170,14 @@ export const useD3 = ({ idDevice }: INodesGraphProps) => {
       var normalise = Math.sqrt(dx * dx + dy * dy);
 
       /*
-        *  -> This is to get curves on links
-        *
-        var offSetX = midpoint_x + offset * (dy / normalise);
-        var offSetY = midpoint_y - offset * (dx / normalise);
-        */
+       *  -> This is to get curves on links
+       *
+       * */
+      var offSetX = midpoint_x + offset * (dy / normalise);
+      var offSetY = midpoint_y - offset * (dx / normalise);
 
-      var offSetX = midpoint_x;
-      var offSetY = midpoint_y;
+      //var offSetX = midpoint_x;
+      //var offSetY = midpoint_y;
 
       var linkLine =
         "M" +
@@ -267,7 +267,8 @@ export const useD3 = ({ idDevice }: INodesGraphProps) => {
   };
 
   React.useEffect(() => {
-    if (graphData.links.length === 0) {
+    console.log("Render count is: ", renderCount);
+    if (graphData.links.length === 0 && renderCount > 0) {
       setNoEnough(true);
       return () => {};
     }
@@ -278,18 +279,12 @@ export const useD3 = ({ idDevice }: INodesGraphProps) => {
       setRenderCount((prevVal) => prevVal + 1);
       return () => {};
     }
-    console.log("entro a lo importante, jeelo");
 
     if (chartIsRendered && graphData.links.length !== 0 && renderCount < 2) {
-      console.log("quejesto ? --> ", graphData);
-      console.log(Object.isExtensible({ ...graphData }));
-      console.log(Object.isExtensible({ ...graphData.nodes[0] }));
-
       renderChart(graphData);
       setRenderCount((prevVal) => prevVal + 1);
       return () => {};
     }
-    console.log("entro a lo importante, jeelo");
   }, [graphData]);
 
   return { chartIsRendered, isLoading, noEnough };

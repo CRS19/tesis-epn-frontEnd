@@ -49,6 +49,7 @@ describe("useMobileTopBar test", () => {
     wrapper.unmount();
     jest.clearAllMocks();
     (useAppSelector as jest.Mock).mockClear();
+    mockRouterPush.mockClear();
   });
 
   it("When user click on hamburger btn, then handleOpenCloseMemu should be called", () => {

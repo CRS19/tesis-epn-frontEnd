@@ -9,6 +9,7 @@ import { Provider } from "react-redux";
 import Head from "next/head";
 
 const clientCache = createEmotionCache();
+console.log("APP RENDERIZED");
 
 function MyApp({
   Component,

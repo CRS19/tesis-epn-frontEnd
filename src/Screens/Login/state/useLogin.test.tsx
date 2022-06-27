@@ -76,6 +76,7 @@ describe("useLogin tests", () => {
     wrapper.unmount();
     jest.clearAllMocks();
     spyState.mockClear();
+    mockRouterPush.mockClear();
     (useAppSelector as jest.Mock).mockClear();
   });
 

@@ -21,6 +21,7 @@ import {
   USERS_ENDPOINTS,
 } from "../../Shared/Contants/Paths";
 import {
+  IGetUserResponse,
   ILoginRequest,
   ILoginResponse,
   IRegisterRequest,
@@ -213,7 +214,6 @@ export const getGraphData =
     try {
       const response = await axios.get<IGraphData>(path, options);
 
-      console.log(response.data);
       dispatch(setGraphData(JSON.parse(JSON.stringify(response.data))));
       dispatch(setIsLoading(false));
     } catch (e) {
@@ -225,5 +225,75 @@ export const getGraphData =
       );
     } finally {
       dispatch(setIsLoading(false));
+    }
+  };
+
+export const updateIsSick =
+  (isSick: boolean, mail: string): AppThunk =>
+  async (dispatch, getState) => {
+    dispatch(setIsLoading(true));
+
+    const path = `${process.env.NEXT_PUBLIC_BASE_API_PATH!}${
+      SERVICE_PATHS.users
+    }${USERS_ENDPOINTS.updateIsSick}`;
+    const options = getAxiosOptions();
+
+    try {
+      const response = await axios.patch<IRegisterResponse>(
+        path,
+        {
+          mail,
+          isSick,
+        },
+        options
+      );
+
+      dispatch(setCurrentUser(response.data.updatedResposne));
+      setLocalStorageUser(response.data.updatedResposne);
+      dispatch(
+        setSnackBarMessage({
+          messageText: `Estado de enfermedad actualizado!`,
+          severity: "success",
+        })
+      );
+    } catch (e) {
+      dispatch(
+        setSnackBarMessage({
+          messageText: "Existe un error en el servidor",
+          severity: "error",
+        })
+      );
+    } finally {
+      dispatch(setIsLoading(false));
+    }
+  };
+
+export const getUser =
+  (mail: string): AppThunk =>
+  async (dispatch, getState) => {
+    const path = `${process.env.NEXT_PUBLIC_BASE_API_PATH!}${
+      SERVICE_PATHS.users
+    }/${mail}`;
+    const options = getAxiosOptions();
+
+    try {
+      const response = await axios.get<IGetUserResponse>(path, options);
+
+      localStorage.removeItem("user");
+      dispatch(setCurrentUser(response.data.user));
+      setLocalStorageUser(response.data.user);
+      dispatch(
+        setSnackBarMessage({
+          messageText: "Un usuario se ha contagiado",
+          severity: "warning",
+        })
+      );
+    } catch (e) {
+      dispatch(
+        setSnackBarMessage({
+          messageText: "Existe un error en el servidor",
+          severity: "error",
+        })
+      );
     }
   };

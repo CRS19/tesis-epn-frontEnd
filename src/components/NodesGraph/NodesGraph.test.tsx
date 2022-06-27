@@ -5,8 +5,9 @@ import { useAppSelector } from "../../Hooks/useAppHooks";
 import { USER_AS_NODES_TEST_OBJ } from "../../Shared/Contants/Tests";
 import store from "../../store/store";
 import { NodesGraph } from "./NodesGraph";
+import * as useD3Hook from "../../Hooks/useD3";
 
-describe("useHome tests", () => {
+describe("NodesGraph tests", () => {
   let wrapper: ReactWrapper;
   let mock_store = store.getState();
 
@@ -31,7 +32,8 @@ describe("useHome tests", () => {
   };
 
   it("When the component is render, then it should has 4 Box ", () => {
-    expect(wrapper.find(Box).length).toEqual(2);
+    console.log(wrapper.debug());
+    expect(wrapper.find(Box).length).toEqual(1);
   });
 
   it("When the component is render, and chart has all data, then it should render a div", () => {
@@ -63,7 +65,7 @@ describe("useHome tests", () => {
 
     mountComponent();
 
-    expect(wrapper.find(Box).length).toEqual(3);
+    expect(wrapper.find(Box).length).toEqual(2);
     expect(wrapper.find(CircularProgress).length).toEqual(1);
   });
 
@@ -81,6 +83,12 @@ describe("useHome tests", () => {
     };
 
     (useAppSelector as jest.Mock).mockImplementation((fn) => fn(mock_store));
+
+    jest.spyOn(useD3Hook, "useD3").mockImplementation(() => ({
+      chartIsRendered: false,
+      noEnough: true,
+      isLoading: false,
+    }));
 
     mountComponent();
 
