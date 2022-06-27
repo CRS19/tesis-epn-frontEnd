@@ -4,8 +4,9 @@ import store from "../../../store/store";
 import { useHome } from "./useHome";
 import { act } from "react-dom/test-utils";
 import * as useHomeHook from "./useHome";
+import * as useSocketHook from "../../../Hooks/useSocket";
+import { USER_TEST_OBJ } from "../../../Shared/Contants/Tests";
 import { RoutesEnum } from "../../../Shared/Enums/Routes";
-import { rolesEnum } from "../../../Shared/Enums/Roles";
 
 const mockRouterPush = jest.fn();
 
@@ -18,8 +19,15 @@ jest.mock("next/router", () => ({
 describe("useHome tests", () => {
   let wrapper: ReactWrapper;
   let spyState: jest.SpyInstance;
-  let spyOnLogOut: jest.SpyInstance;
   let mock_store = store.getState();
+  let onCloseAlertSickModalPropsSpyOn: jest.SpyInstance;
+  let openAlertSickModal: jest.SpyInstance;
+  let closeHealthModalSpyOn: jest.SpyInstance;
+  let openHealthModalSpyOn: jest.SpyInstance;
+  let setHealthSpyOn: jest.SpyInstance;
+  let closeSickModalSpyOn: jest.SpyInstance;
+  let openSickModalSpyOn: jest.SpyInstance;
+  let setSickSpyOn: jest.SpyInstance;
 
   const TestComponent = () => {
     const props = useHome();
@@ -30,10 +38,43 @@ describe("useHome tests", () => {
 
   beforeEach(() => {
     (useAppSelector as jest.Mock).mockImplementation((fn) => fn(mock_store));
+    mock_useSocket(true);
 
     wrapper = mount(<TestComponent />);
 
     spyState = jest.spyOn(useHomeHook, "useHome");
+    onCloseAlertSickModalPropsSpyOn = jest.spyOn(
+      wrapper.childAt(0).props().alertSickModalProps,
+      "onClose"
+    );
+    openAlertSickModal = jest.spyOn(
+      wrapper.childAt(0).props(),
+      "openAlertSickModal"
+    );
+    closeHealthModalSpyOn = jest.spyOn(
+      wrapper.childAt(0).props().HealthModalProps,
+      "onClose"
+    );
+    openHealthModalSpyOn = jest.spyOn(
+      wrapper.childAt(0).props(),
+      "openHealthModal"
+    );
+    setHealthSpyOn = jest.spyOn(
+      wrapper.childAt(0).props().HealthModalProps,
+      "onYesPress"
+    );
+    closeSickModalSpyOn = jest.spyOn(
+      wrapper.childAt(0).props().sickModalPorps,
+      "onClose"
+    );
+    openSickModalSpyOn = jest.spyOn(
+      wrapper.childAt(0).props(),
+      "openSickModal"
+    );
+    setSickSpyOn = jest.spyOn(
+      wrapper.childAt(0).props().sickModalPorps,
+      "onYesPress"
+    );
   });
 
   afterEach(() => {
@@ -41,54 +82,109 @@ describe("useHome tests", () => {
     jest.clearAllMocks();
     spyState.mockClear();
     (useAppSelector as jest.Mock).mockClear();
+    mockRouterPush.mockClear();
   });
 
-  it("When is LogOut is called, then it should log out", () => {
+  const mock_useSocket = (isSocketDefined: boolean) => {
+    const socket = jest
+      .spyOn(useSocketHook, "useSocket")
+      .mockImplementation(() =>
+        isSocketDefined
+          ? ({
+              emit: jest.fn(),
+              on: jest.fn(),
+            } as any)
+          : undefined
+      );
+
+    return socket;
+  };
+
+  it("should render correctly", () => {
+    console.log(wrapper.debug());
+
+    expect(wrapper.find("div").length).toBe(1);
+  });
+
+  it("When user close alert sick modal, then closeAlertSickModal should be called", () => {
     act(() => {
-      wrapper.childAt(0).props().logOut();
+      wrapper.childAt(0).props().alertSickModalProps.onClose();
     });
 
-    mock_store = {
-      generalReducer: {
-        ...store.getState().generalReducer,
-        isLoggedIn: true,
-      },
-    };
-
-    wrapper.update();
-
-    expect(mock_store.generalReducer.isLoggedIn).toEqual(true);
+    expect(onCloseAlertSickModalPropsSpyOn).toHaveBeenCalledTimes(1);
   });
 
-  it("When the user is no loggedIn, then it should redirect to loggin page", () => {
+  it("When user cles alert sick modal, then openAlertSickModal should be called", () => {
+    act(() => {
+      wrapper.childAt(0).props().openAlertSickModal();
+    });
+
+    expect(openAlertSickModal).toHaveBeenCalledTimes(1);
+  });
+
+  it("When user close health modal, then closeHealthModal should be called", () => {
+    act(() => {
+      wrapper.childAt(0).props().openAlertSickModal();
+    });
+
+    expect(openAlertSickModal).toHaveBeenCalledTimes(1);
+  });
+
+  it("When the user close health modal, then closeHealthModalSpyOn should be called", () => {
+    act(() => {
+      wrapper.childAt(0).props().HealthModalProps.onClose();
+    });
+
+    expect(closeHealthModalSpyOn).toHaveBeenCalledTimes(1);
+  });
+
+  it("When user open health modal, then openHealthModalSpyOn should be called", () => {
+    act(() => {
+      wrapper.childAt(0).props().openHealthModal();
+    });
+
+    expect(openHealthModalSpyOn).toHaveBeenCalledTimes(1);
+  });
+
+  it("When user do click on yes btn in health modal, then setHealth should be called", () => {
+    act(() => {
+      wrapper.childAt(0).props().HealthModalProps.onYesPress();
+    });
+
+    expect(setHealthSpyOn).toHaveBeenCalledTimes(1);
+  });
+
+  it("When user close sick modal, then closeSickModal should be called", () => {
+    act(() => {
+      wrapper.childAt(0).props().sickModalPorps.onClose();
+    });
+
+    expect(closeSickModalSpyOn).toHaveBeenCalledTimes(1);
+  });
+
+  it("When user open sick modal, then openSickModalSpyOn should be called", () => {
+    act(() => {
+      wrapper.childAt(0).props().openSickModal();
+    });
+
+    expect(openSickModalSpyOn).toHaveBeenCalledTimes(1);
+  });
+
+  it("Wehn user do click on yes btn of sick modal, then setSickSpyOn should be called", () => {
+    act(() => {
+      wrapper.childAt(0).props().sickModalPorps.onYesPress();
+    });
+
+    expect(setSickSpyOn).toHaveBeenCalledTimes(1);
+  });
+
+  it("When user is not undefined, it should call push method", () => {
     wrapper.unmount();
     mock_store = {
       generalReducer: {
         ...store.getState().generalReducer,
-        isLoggedIn: false,
-      },
-    };
-
-    wrapper = mount(<TestComponent />);
-
-    expect(mockRouterPush).toHaveBeenCalledWith(RoutesEnum.LOGIN);
-  });
-
-  it("When the user exists and user has no idDevice, then it should redirect to Link Device page", () => {
-    wrapper.unmount();
-    mock_store = {
-      generalReducer: {
-        ...store.getState().generalReducer,
         isLoggedIn: true,
-        currentUser: {
-          fullName: "Cris Flores",
-          idDevice: "",
-          isDevice: false,
-          isPossibleSick: false,
-          isSick: false,
-          mail: "a@a.com",
-          rol: rolesEnum.USER,
-        },
+        currentUser: { ...USER_TEST_OBJ, idDevice: "" },
       },
     };
 
@@ -97,26 +193,43 @@ describe("useHome tests", () => {
     expect(mockRouterPush).toHaveBeenCalledWith(RoutesEnum.LINK_DEVICE);
   });
 
-  it("When the user exists and user has idDevice, then it should not redirect to Link Device page", () => {
+  it("When currentUser has an idDevice, mockRouterPush should not be called", () => {
+    mockRouterPush.mockClear();
     wrapper.unmount();
     mock_store = {
       generalReducer: {
         ...store.getState().generalReducer,
         isLoggedIn: true,
-        currentUser: {
-          fullName: "Cris Flores",
-          idDevice: "12345",
-          isDevice: false,
-          isPossibleSick: false,
-          isSick: false,
-          mail: "a@a.com",
-          rol: rolesEnum.USER,
-        },
+        currentUser: { ...USER_TEST_OBJ, idDevice: "123" },
       },
     };
 
     wrapper = mount(<TestComponent />);
 
-    expect(mockRouterPush).toHaveBeenCalledTimes(1);
+    expect(mockRouterPush).not.toHaveBeenCalled();
+  });
+
+  it("When sokcet is not defined, component should mounted", () => {
+    wrapper.unmount();
+    mock_useSocket(false);
+
+    wrapper = mount(<TestComponent />);
+
+    expect(wrapper.find("div").length).toBe(1);
+  });
+
+  it("When socket is defined and it has a call, then user has to be reloaded", () => {
+    wrapper.unmount();
+
+    const socket = mock_useSocket(true);
+
+    wrapper = mount(<TestComponent />);
+
+    // @ts-ignore
+    socket.getMockImplementation()?.call()?.on();
+
+    wrapper.update();
+
+    console.log(wrapper.childAt(0).debug());
   });
 });

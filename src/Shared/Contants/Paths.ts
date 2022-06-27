@@ -12,6 +12,7 @@ export const AUTH_ENDPOINTS = {
 
 export const USERS_ENDPOINTS = {
   linkDevice: "/vinculateDevice",
+  updateIsSick: "/updateIsSick",
 };
 
 export const CONTACTS_ENPOINTS = {

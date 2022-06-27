@@ -17,7 +17,10 @@ export const getColorByPath = (
 ): IStyles => ({
   textColor: {
     color: currentPath === pathName ? "#77A4DC" : "#616462",
-    fontSize: `${getFontsSizesByWidth(width)}px`,
+    fontSize:
+      getFontsSizesByWidth(width) < 20
+        ? `${getFontsSizesByWidth(width)}px`
+        : "20px",
     textTransform: "uppercase",
     cursor: "pointer",
     "&:hover": {

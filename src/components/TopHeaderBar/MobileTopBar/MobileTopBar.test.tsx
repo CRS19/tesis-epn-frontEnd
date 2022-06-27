@@ -45,8 +45,9 @@ describe("MobileTopBar tests", () => {
   };
 
   afterEach(() => {
-    jest.clearAllMocks();
     wrapper.unmount();
+    jest.clearAllMocks();
+    mockRouterPush.mockClear();
   });
 
   const mountComponent = () => {

@@ -48,6 +48,7 @@ describe("useLinkDevice test", () => {
     jest.clearAllMocks();
     spyState.mockClear();
     (useAppSelector as jest.Mock).mockClear();
+    mockRouterPush.mockClear();
   });
 
   const mountComponent = () => {
