@@ -3,6 +3,7 @@ import { IRegisterFormValues } from "./../../../utility/form-utils";
 import {
   changeTestText,
   IAppState,
+  setContacts,
   setCurrentUser,
   setGraphData,
   setIsLoading,
@@ -27,10 +28,10 @@ import {
   IRegisterRequest,
   IRegisterResponse,
 } from "../../Shared/Interfaces/LoginRequest.interfaces";
-import { isNil } from "lodash";
 import { AxiosError } from "axios";
 import { setLocalStorageUser } from "../../../utility/localStorage-utils";
 import { IGraphData } from "../../components/NodesGraph/NodesGraph.interfaces";
+import { IContacts } from "../../Shared/Interfaces/IContacts.interfaces";
 
 export type IAppAction = {
   type: string;
@@ -297,3 +298,36 @@ export const getUser =
       );
     }
   };
+
+export const getContacts = (): AppThunk => async (dispatch, getState) => {
+  const user = getState().generalReducer.currentUser!;
+  const userLocal = JSON.parse(localStorage.getItem("user")!);
+  const path = `${process.env.NEXT_PUBLIC_BASE_API_PATH!}${
+    SERVICE_PATHS.contacts
+  }${CONTACTS_ENPOINTS.getContacts}/${userLocal.idDevice}`;
+  const options = getAxiosOptions();
+
+  try {
+    const response = await axios.get<{
+      contacts: IContacts[];
+      totalCount: number;
+    }>(path, options);
+
+    console.log(JSON.stringify(response.data));
+
+    dispatch(setContacts(response.data.contacts));
+    dispatch(
+      setSnackBarMessage({
+        messageText: "Contactos obtenidos exitosamente",
+        severity: "success",
+      })
+    );
+  } catch (e) {
+    dispatch(
+      setSnackBarMessage({
+        messageText: "Existe un error al obtener los contactos",
+        severity: "error",
+      })
+    );
+  }
+};

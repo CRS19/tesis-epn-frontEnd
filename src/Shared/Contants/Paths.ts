@@ -17,6 +17,7 @@ export const USERS_ENDPOINTS = {
 
 export const CONTACTS_ENPOINTS = {
   data: "/data",
+  getContacts: "/getContacts",
 };
 
 export const ROUTES_ARRAY = [
