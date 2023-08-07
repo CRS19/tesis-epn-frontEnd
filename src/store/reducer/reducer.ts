@@ -4,6 +4,7 @@ import { ISnackBarMessage } from "./../../Shared/Interfaces/SnackBar.interfaces"
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IUser } from "../../Shared/Interfaces/User.interfaces";
 import { INITIAL_SNACK_BAR } from "../../Shared/Contants/InitialSnackBarConfig";
+import { IContacts } from "../../Shared/Interfaces/IContacts.interfaces";
 
 export interface IAppState {
   messageText?: string;
@@ -13,6 +14,7 @@ export interface IAppState {
   snackBarConfig?: ISnackBarMessage;
   currentPath?: RoutesEnum;
   graphData?: IGraphData;
+  contacts?: IContacts[];
 }
 
 export const DEFAULT_STATE: IAppState = {
@@ -22,6 +24,7 @@ export const DEFAULT_STATE: IAppState = {
   currentUser: undefined,
   snackBarConfig: INITIAL_SNACK_BAR,
   graphData: { nodes: [], links: [] },
+  contacts: [],
 };
 
 export const generalReducer = createSlice({
@@ -51,6 +54,10 @@ export const generalReducer = createSlice({
     setGraphData: (state, action: PayloadAction<IGraphData>) => {
       state.graphData = action.payload;
     },
+
+    setContacts: (state, action: PayloadAction<IContacts[]>) => {
+      state.contacts = action.payload;
+    },
   },
 });
 
@@ -61,6 +68,7 @@ export const {
   setCurrentUser,
   setSnackBarMessage,
   setGraphData,
+  setContacts,
 } = generalReducer.actions;
 
 export default generalReducer.reducer;

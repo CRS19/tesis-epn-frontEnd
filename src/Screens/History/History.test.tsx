@@ -38,14 +38,22 @@ describe("History Tests", () => {
     expect(wrapper.find(History).dive().find("div")).toHaveLength(0);
   });
 
-  it("When component is render and user is logged in, it should render link device page", () => {
+  it("When component is render and user is logged in, it should render one TopBar, one BackgroundHistoryPage and one ContactsTable", () => {
     jest.spyOn(useHistoryHook, "useHistory").mockImplementation(() => ({
       ...use_history_mock_response,
       isLoggedIn: true,
+      contacts: [],
     }));
 
     mountComponent();
 
-    expect(wrapper.find(History).dive().find("div")).toHaveLength(1);
+    expect(wrapper.find(History).dive().find("TopBar")).toHaveLength(1);
+    expect(
+      wrapper.find(History).dive().find("BackgroundHistoryPage")
+    ).toHaveLength(1);
+    expect(wrapper.find(History).dive().find("ContactsTable")).toHaveLength(1);
+    expect(
+      wrapper.find(History).dive().find("ContactsTable").props()
+    ).toHaveProperty("contacts", []);
   });
 });
