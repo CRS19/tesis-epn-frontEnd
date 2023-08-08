@@ -89,7 +89,10 @@ export const HomeDashboard = () => {
                 alignItems: "center",
               }}
             >
-              <Typography sx={homeStyles.contactsTitle}>Contactos</Typography>
+              <Typography sx={homeStyles.contactsTitle}>
+                Contactos <br />
+                de proximidad
+              </Typography>
               <NodesGraph idDevice={get(currentUser, "idDevice", "")} />
               {!get(currentUser, "isSick", false) ? (
                 <Box sx={{ marginBottom: 2 }}>
