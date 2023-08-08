@@ -7,6 +7,7 @@ export const NodesGraphStyles: IStyles = {
     width: "700px",
     border: "2px solid",
     borderRadius: "58px",
+    bgcolor: "white",
   },
   loading: {
     alignSelf: "center",

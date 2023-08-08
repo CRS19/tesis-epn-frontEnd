@@ -3,7 +3,8 @@ import { IStyles } from "./../../Shared/Interfaces/Styles.interfaces";
 export const homeStyles: IStyles = {
   contactsTitle: {
     color: "#142946",
-    fontSize: "58px",
+    fontSize: "48px",
+    textAlign: "center",
   },
   subTitle: {
     fontSize: "24px",
